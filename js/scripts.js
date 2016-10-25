@@ -3,7 +3,8 @@ var result;
 var factors = [];
 var inputPalindrome;
 var numberEntered;
-
+var allNumbers = [];
+var primeTest;
 var checkPalindrome = function(palindrome){
   spaceLessPalindrome=palindrome.split("").filter(function(a){
     return a!==" ";
@@ -28,6 +29,29 @@ var getFactorial = function(numberEntered) {
   result = factors.reduce(function(a, b) {
     return a * b;
   })
+}
+
+//2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,...
+var x=2;
+var checkPrime = function(number) {
+
+  for (i = 2; i <= number; i++) {
+    allNumbers[i] = true;
+  }
+  for (i = 4; i <=number; i++) {
+    if ((i % 2) === 0) {allNumbers[i] = false;}
+  }
+  for (i = 6; i <=number; i++) {
+    if ((i % 5) === 0) {allNumbers[i] = false;}
+  }
+  for (i = 4; i <=number; i++) {
+    primeTest=i.toString().split("");
+    var temp=primeTest.map(function(a){return parseInt(a)});
+    var answer=primeTest.reduce(function(a,b){return(a+b)});
+    if ((answer % 3)=== 0){allNumbers[i] = false;}
+
+  }
+  console.log(allNumbers);
 }
 
 $(function(){
@@ -88,4 +112,9 @@ $(function(){
     inputPalindrome=$("#palindromes form input:text").val();
     checkPalindrome(inputPalindrome);
   });
+  $("#primes form").submit(function(event) {
+    event.preventDefault();
+    inputNumber = $("#primes form input:text").val();
+    checkPrime(inputNumber);
+  })
 });
