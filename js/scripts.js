@@ -10,15 +10,15 @@ var checkPalindrome = function(palindrome){
   spaceLessPalindrome=palindrome.split("").filter(function(a){
     return a!==" ";
   });
-
+  console.log("Test "+spaceLessPalindrome);
   var reverse=spaceLessPalindrome.reverse().join("");
-  console.log("original: " + spaceLessPalindrome.join(""));
+  console.log("original: " + spaceLessPalindrome.reverse().join(""));
   console.log("reverse: " + reverse);
   if(reverse.toLowerCase()===spaceLessPalindrome.join("").toLowerCase()){
-    console.log("YESSS");
+    return true;
   }
   else{
-    console.log("NOO");
+    return false;
   }
 }
 
@@ -39,45 +39,17 @@ var getFactorial = function(numberEntered) {
     for (i = 0; i <= number; i++) {
       newArray[i]=true;
     }
-    // console.log(primeArray);
     for (j = 0; j<= primeArray.length/2; j++) {
       var multiplesOfNumber = primeArray.filter(function(a) {
-        // console.log("a is:"+a+ "pArray: "+ primeArray[j]+"modulus: "+ (a % primeArray[j]));
         if(a % primeArray[j]=== 0){
           return true;
         }
       });
-
-      // console.log("answer "+multiplesOfNumber);
       for(x=1;x<=multiplesOfNumber.length;x++){
         newArray[multiplesOfNumber[x]]=false;
       }
     }
-
-    // console.log(newArray);
   }
-
-//2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,...
-// var checkPrime = function(number) {
-//
-//   for (i = 2; i <= number; i++) {
-//     allNumbers[i] = true;
-//   }
-//   for (i = 4; i <=number; i++) {
-//     if ((i % 2) === 0) {allNumbers[i] = false;}
-//   }
-//   for (i = 6; i <=number; i++) {
-//     if ((i % 5) === 0) {allNumbers[i] = false;}
-//   }
-//   for (i = 4; i <=number; i++) {
-//     primeTest=i.toString().split("");
-//     var temp=primeTest.map(function(a){return parseInt(a)});
-//     var answer=primeTest.reduce(function(a,b){return(a+b)});
-//     if ((answer % 3)=== 0){allNumbers[i] = false;}
-//
-//   }
-  // console.log(allNumbers);
-// }
 
 $(function(){
   $("#warningSigns form").submit(function(event){
@@ -135,7 +107,11 @@ $(function(){
   $("#palindromes form").submit(function(event) {
     event.preventDefault();
     inputPalindrome=$("#palindromes form input:text").val();
-    checkPalindrome(inputPalindrome);
+    if(checkPalindrome(inputPalindrome)){
+      $("#palindromesResults").text("Yes, " + inputPalindrome + " is a palindrome");
+    } else {
+      $("#palindromesResults").text("No, " + inputPalindrome + " is not a palindrome")
+    }
   });
   $("#primes form").submit(function(event) {
     event.preventDefault();
@@ -143,12 +119,17 @@ $(function(){
     newArray=[];
     multiplesOfNumber=[];
     primeArray=[];
-    inputNumber = $("#primes form input:text").val();
+    inputNumber = $("#primes form input").val();
     checkPrime(inputNumber);
-    for(y=2;y<=newArray.length;y++){
-      if(newArray[y]===true){
-        $("#primesResults ul").append("<li>"+y+"</li>");
+    if(inputNumber>0 && inputNumber < 20000){
+      for(y=2;y<=newArray.length;y++){
+        if(newArray[y]===true){
+          $("#primesResults ul").append("<li>"+y+"</li>");
+        }
       }
+    }
+    else{
+      alert("Please input a positive number below 20,000");
     }
   })
 });

@@ -1,3 +1,14 @@
+body {
+  background: linear-gradient(to top, #aaDDDD, #FFaaFF);
+  background-attachment: fixed;
+}
+
+.well, .jumbotron {
+  background-color: #EEDDFF;
+  border: none;
+  box-shadow: 10px 10px 10px #AA99BB;
+}
+
 #healthSymptoms{
   display: none;
 }
