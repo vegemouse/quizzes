@@ -1,12 +1,25 @@
 body {
   background: linear-gradient(to top, #aaDDDD, #FFaaFF);
   background-attachment: fixed;
+  text-align: center;
 }
-
 .well, .jumbotron {
   background-color: #EEDDFF;
   border: none;
   box-shadow: 10px 10px 10px #AA99BB;
+}
+
+#credits {
+  position: fixed;
+  border: 1px solid grey;
+  color: white;
+  background: linear-gradient(to right, #330044, #000);
+  bottom: 0;
+  left: 40vw;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px 10px 0 0;
 }
 
 #healthSymptoms{
@@ -21,4 +34,8 @@ body {
 }
 #factorialsResults {
   font-size: 2.5em;
+}
+
+button {
+  margin: 10px;
 }
