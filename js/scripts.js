@@ -1,6 +1,26 @@
 var stress=0;
 var result;
 var factors = [];
+var inputPalindrome;
+var numberEntered;
+
+var checkPalindrome = function(palindrome){
+  spaceLessPalindrome=palindrome.split("").filter(function(a){
+    return a!==" ";
+  });
+
+  var reverse=spaceLessPalindrome.reverse().join("");
+  console.log("original: " + spaceLessPalindrome.join(""));
+  console.log("reverse: " + reverse);
+  if(reverse.toLowerCase()===spaceLessPalindrome.join("").toLowerCase()){
+    console.log("YESSS");
+  }
+  else{
+    console.log("NOO");
+  }
+}
+
+
 var getFactorial = function(numberEntered) {
   for (i = 1; i <= numberEntered; i++) {
     factors.push(i);
@@ -8,7 +28,6 @@ var getFactorial = function(numberEntered) {
   result = factors.reduce(function(a, b) {
     return a * b;
   })
-  console.log(result);
 }
 
 $(function(){
@@ -51,7 +70,7 @@ $(function(){
     event.preventDefault();
     result = 0;
     factors = [];
-    numberEntered = parseInt($("input:text").val());
+    numberEntered = parseInt($("#factorials form input:text").val());
     $("#factorialsResults").show()
     if (typeof numberEntered === "number" && numberEntered > 0) {
       getFactorial(numberEntered);
@@ -63,6 +82,10 @@ $(function(){
     } else {
       alert("Please enter a POSITIVE number");
     }
-  })
-
+  });
+  $("#palindromes form").submit(function(event) {
+    event.preventDefault();
+    inputPalindrome=$("#palindromes form input:text").val();
+    checkPalindrome(inputPalindrome);
+  });
 });
