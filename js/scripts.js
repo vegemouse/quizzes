@@ -5,6 +5,7 @@ var inputPalindrome;
 var numberEntered;
 var allNumbers = [];
 var primeTest;
+var newArray=[];
 var checkPalindrome = function(palindrome){
   spaceLessPalindrome=palindrome.split("").filter(function(a){
     return a!==" ";
@@ -30,29 +31,53 @@ var getFactorial = function(numberEntered) {
     return a * b;
   })
 }
+  var primeArray = []
+  var checkPrime = function(number) {
+    for (i = 2; i <= number; i++) {
+      primeArray.push(i);
+    }
+    for (i = 0; i <= number; i++) {
+      newArray[i]=true;
+    }
+    // console.log(primeArray);
+    for (j = 0; j<= primeArray.length/2; j++) {
+      var multiplesOfNumber = primeArray.filter(function(a) {
+        // console.log("a is:"+a+ "pArray: "+ primeArray[j]+"modulus: "+ (a % primeArray[j]));
+        if(a % primeArray[j]=== 0){
+          return true;
+        }
+      });
+
+      // console.log("answer "+multiplesOfNumber);
+      for(x=1;x<=multiplesOfNumber.length;x++){
+        newArray[multiplesOfNumber[x]]=false;
+      }
+    }
+
+    // console.log(newArray);
+  }
 
 //2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,...
-var x=2;
-var checkPrime = function(number) {
-
-  for (i = 2; i <= number; i++) {
-    allNumbers[i] = true;
-  }
-  for (i = 4; i <=number; i++) {
-    if ((i % 2) === 0) {allNumbers[i] = false;}
-  }
-  for (i = 6; i <=number; i++) {
-    if ((i % 5) === 0) {allNumbers[i] = false;}
-  }
-  for (i = 4; i <=number; i++) {
-    primeTest=i.toString().split("");
-    var temp=primeTest.map(function(a){return parseInt(a)});
-    var answer=primeTest.reduce(function(a,b){return(a+b)});
-    if ((answer % 3)=== 0){allNumbers[i] = false;}
-
-  }
-  console.log(allNumbers);
-}
+// var checkPrime = function(number) {
+//
+//   for (i = 2; i <= number; i++) {
+//     allNumbers[i] = true;
+//   }
+//   for (i = 4; i <=number; i++) {
+//     if ((i % 2) === 0) {allNumbers[i] = false;}
+//   }
+//   for (i = 6; i <=number; i++) {
+//     if ((i % 5) === 0) {allNumbers[i] = false;}
+//   }
+//   for (i = 4; i <=number; i++) {
+//     primeTest=i.toString().split("");
+//     var temp=primeTest.map(function(a){return parseInt(a)});
+//     var answer=primeTest.reduce(function(a,b){return(a+b)});
+//     if ((answer % 3)=== 0){allNumbers[i] = false;}
+//
+//   }
+  // console.log(allNumbers);
+// }
 
 $(function(){
   $("#warningSigns form").submit(function(event){
@@ -114,7 +139,16 @@ $(function(){
   });
   $("#primes form").submit(function(event) {
     event.preventDefault();
+    $("#primesResults ul").empty();
+    newArray=[];
+    multiplesOfNumber=[];
+    primeArray=[];
     inputNumber = $("#primes form input:text").val();
     checkPrime(inputNumber);
+    for(y=2;y<=newArray.length;y++){
+      if(newArray[y]===true){
+        $("#primesResults ul").append("<li>"+y+"</li>");
+      }
+    }
   })
 });
