@@ -1,4 +1,15 @@
 var stress=0;
+var result;
+var factors = [];
+var getFactorial = function(numberEntered) {
+  for (i = 1; i <= numberEntered; i++) {
+    factors.push(i);
+  }
+  result = factors.reduce(function(a, b) {
+    return a * b;
+  })
+  console.log(result);
+}
 
 $(function(){
   $("#warningSigns form").submit(function(event){
@@ -36,5 +47,22 @@ $(function(){
 
   });
 
+  $("#factorials form").submit(function(event) {
+    event.preventDefault();
+    result = 0;
+    factors = [];
+    numberEntered = parseInt($("input:text").val());
+    $("#factorialsResults").show()
+    if (typeof numberEntered === "number" && numberEntered > 0) {
+      getFactorial(numberEntered);
+      $("#factorialsResults").text("The factorial of " + numberEntered + " is " + result);
+    } else if (numberEntered > 170) {
+      $("#factorialsResults").text("That number is too high! Just use google...");
+    } else if (numberEntered === 0) {
+      result = 1;
+    } else {
+      alert("Please enter a POSITIVE number");
+    }
+  })
 
 });
